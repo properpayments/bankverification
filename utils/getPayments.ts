@@ -41,10 +41,10 @@ export function getRecipientAccount(account: any) {
   return _account;
 }
 
-function getCSVObjects(data: PapaParseResult) {
-  const objects: Payment[] = [];
+function getPayments(papaParseResults: PapaParseResult[]): Payment[] {
+  const payments: Payment[] = [];
 
-  data.map((obj) => {
+  papaParseResults.map((obj) => {
     const keys = Object.keys(obj);
     let object: any = {};
 
@@ -57,14 +57,9 @@ function getCSVObjects(data: PapaParseResult) {
       object[property] = value;
     });
 
-    objects.push(object);
+    payments.push(object);
   });
 
-  return objects;
-}
-
-function getPayments(data: PapaParseResult): Payment[] {
-  const payments = getCSVObjects(data);
   payments.forEach(checkHasExpectedPaymentFormat);
   return payments;
 }

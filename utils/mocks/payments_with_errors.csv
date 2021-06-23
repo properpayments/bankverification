@@ -1,0 +1,6 @@
+Beløb;Valuta;Dato;Afsenders konto;Tekst;Modtagers navn;Modtagers konto;Betalingstype;Status
+1;DKK;01.01.2020;NOT_VIRTUAL_ACCOUNT;Proper abc;PROPER APS;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper def;PROPER APS;FAKE_REG FAKE_ACCOUNT;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper fees def;PROPER APS;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper fees ???;PROPER APS;3001 0012787812;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper ghi;PROPER APS;3001 0012913478;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt

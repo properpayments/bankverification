@@ -1,14 +1,16 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import getPayments from "../../utils/getPayments";
-import { Payment } from "../../utils/types";
+import getBankAccounts from "../../utils/getBankAccounts";
+import { Message } from "../../utils/types";
+import verifyOutboundPayments from "../../utils/verifyOutboundPayments";
 
-type Reponse = Payment[];
+type Reponse = Message[];
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Reponse>
 ) {
-  const body = JSON.parse(req.body);
-  const payments = getPayments(body);
-  res.status(200).json(payments);
+  const accounts = await getBankAccounts();
+  const papaParseResults = JSON.parse(req.body);
+  const messages = verifyOutboundPayments(papaParseResults, accounts);
+  res.status(200).json(messages);
 }
