@@ -60,7 +60,7 @@ function verifyOutboundPayments(
       if (!feeHasCorrespondingPayout(payment, payments)) {
         messages.push({
           id,
-          name: "fee-missing-corresponsing-payout",
+          name: "fee-missing-corresponding-payout",
           type: "error",
         });
       }

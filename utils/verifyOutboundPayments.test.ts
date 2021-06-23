@@ -48,7 +48,7 @@ describe("verifyOutboundPayments", () => {
       },
       {
         id: "Proper fees ???",
-        name: "fee-missing-corresponsing-payout",
+        name: "fee-missing-corresponding-payout",
         type: "error",
       },
       {

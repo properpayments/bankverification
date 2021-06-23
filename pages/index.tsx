@@ -9,7 +9,7 @@ const getMessageDescription = (name: MessageName) => {
     return "Destination is not in list of approved accounts";
   } else if (name === "fee-wrong-account") {
     return "Expected destination to be operations account";
-  } else if (name === "fee-missing-corresponsing-payout") {
+  } else if (name === "fee-missing-corresponding-payout") {
     return "The fee has no corresponding payout";
   } else if (name === "is-parking-account") {
     return "Will be transfered to our parking account";

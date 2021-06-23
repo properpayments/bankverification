@@ -19,7 +19,7 @@ export type MessageName =
   | "missing-virtual-account"
   | "account-not-in-approved-list"
   | "fee-wrong-account"
-  | "fee-missing-corresponsing-payout"
+  | "fee-missing-corresponding-payout"
   | "is-parking-account";
 
 export type Message = {
