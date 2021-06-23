@@ -1,5 +1,4 @@
 import Papa from "papaparse";
-import getPayments from "../utils/getPayments";
 import { PapaParseResult } from "../utils/types";
 
 const papaParseOptions = {
@@ -10,14 +9,20 @@ const papaParseOptions = {
 };
 
 const Upload = () => {
+  const onCSVParsed = async ({ data }: { data: PapaParseResult }) => {
+    const response = await fetch("/api/validate", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+    const json = await response.json();
+    console.log(json);
+  };
+
   const onChange = (event: any) => {
     if (event.target.files) {
       Papa.parse(event.target.files[0], {
         ...papaParseOptions,
-        complete: ({ data }) => {
-          const payments = getPayments(data as PapaParseResult);
-          console.log(payments);
-        },
+        complete: onCSVParsed,
       });
     }
   };
