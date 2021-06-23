@@ -1,4 +1,6 @@
 import Papa from "papaparse";
+import getPayments from "../utils/getPayments";
+import { PapaParseResult } from "../utils/types";
 
 const papaParseOptions = {
   delimiter: ";",
@@ -13,7 +15,8 @@ const Upload = () => {
       Papa.parse(event.target.files[0], {
         ...papaParseOptions,
         complete: ({ data }) => {
-          console.log(data);
+          const payments = getPayments(data as PapaParseResult);
+          console.log(payments);
         },
       });
     }
