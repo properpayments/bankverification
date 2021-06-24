@@ -50,7 +50,7 @@ function toAccountIsInApprovedAccounts(
   payment: Payment,
   approvedAccounts: Account[]
 ) {
-  return approvedAccounts.find(
+  return [PARKING_ACCOUNT, ...approvedAccounts].find(
     (account) => account === payment["Modtagers konto"]
   );
 }
@@ -98,14 +98,6 @@ function verifyOutboundPayments(
       messages.push({ id, code: "missing-virtual-account", type: "error" });
     }
 
-    if (!toAccountIsInApprovedAccounts(payment, approvedAccounts)) {
-      messages.push({
-        id,
-        code: "account-not-in-approved-list",
-        type: "error",
-      });
-    }
-
     if (isProperFee(payment)) {
       if (!toAccountIsOperationsAccount(payment)) {
         messages.push({ id, code: "fee-wrong-account", type: "error" });
@@ -120,10 +112,18 @@ function verifyOutboundPayments(
           type: "error",
         });
       }
-    }
+    } else {
+      if (!toAccountIsInApprovedAccounts(payment, approvedAccounts)) {
+        messages.push({
+          id,
+          code: "account-not-in-approved-list",
+          type: "error",
+        });
+      }
 
-    if (toAccountIsParkingAccount(payment)) {
-      messages.push({ id, code: "is-parking-account", type: "warning" });
+      if (toAccountIsParkingAccount(payment)) {
+        messages.push({ id, code: "is-parking-account", type: "warning" });
+      }
     }
   });
 
