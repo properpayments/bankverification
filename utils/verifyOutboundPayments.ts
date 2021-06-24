@@ -41,33 +41,33 @@ function verifyOutboundPayments(
   payments.forEach((payment) => {
     const id = payment.Tekst;
     if (!senderIsVirtualAccount(payment)) {
-      messages.push({ id, name: "missing-virtual-account", type: "error" });
+      messages.push({ id, code: "missing-virtual-account", type: "error" });
     }
 
     if (!toAccountIsInApprovedAccounts(payment, accounts)) {
       messages.push({
         id,
-        name: "account-not-in-approved-list",
+        code: "account-not-in-approved-list",
         type: "error",
       });
     }
 
     if (isProperFee(payment)) {
       if (!toAccountIsOperationsAccount(payment)) {
-        messages.push({ id, name: "fee-wrong-account", type: "error" });
+        messages.push({ id, code: "fee-wrong-account", type: "error" });
       }
 
       if (!feeHasCorrespondingPayout(payment, payments)) {
         messages.push({
           id,
-          name: "fee-missing-corresponding-payout",
+          code: "fee-missing-corresponding-payout",
           type: "error",
         });
       }
     }
 
     if (toAccountIsParkingAccount(payment)) {
-      messages.push({ id, name: "is-parking-account", type: "warning" });
+      messages.push({ id, code: "is-parking-account", type: "warning" });
     }
   });
 

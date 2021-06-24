@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { parseFile } from "../utils/parseCSV";
-import { Message, MessageName, PapaParseResult } from "../utils/types";
+import { Message, MessageCode, PapaParseResult } from "../utils/types";
 
-const getMessageDescription = (name: MessageName) => {
+type ValidationStatusType = "idle" | "validating" | "success" | "error";
+
+const getMessageDescription = (name: MessageCode) => {
   if (name === "missing-virtual-account") {
     return "The sender is not a virtual bank account";
   } else if (name === "account-not-in-approved-list") {
@@ -16,12 +18,59 @@ const getMessageDescription = (name: MessageName) => {
   }
 };
 
-type ValidationStatus = "idle" | "validating" | "success" | "error";
+type ValidationStatusProps = {
+  validationStatus: ValidationStatusType;
+};
+const ValidationStatus = ({ validationStatus }: ValidationStatusProps) => {
+  let status;
+  if (validationStatus === "idle") {
+    status = <span style={{ color: "gray" }}>Not started</span>;
+  } else if (validationStatus === "validating") {
+    status = <span style={{ color: "blue" }}>Validating...</span>;
+  } else if (validationStatus === "error") {
+    status = <span style={{ color: "red" }}>Error!</span>;
+  } else if (validationStatus === "success") {
+    status = <span style={{ color: "green" }}>All good!</span>;
+  }
 
-const Upload = () => {
-  const [validationStatus, setValidationStatus] = useState<ValidationStatus>(
-    "idle"
-  );
+  return <h2>Validation status: {status}</h2>;
+};
+
+type MessagesProps = {
+  messages: Message[];
+};
+const Messages = ({ messages }: MessagesProps) => (
+  <table>
+    <thead>
+      <tr>
+        <td>Id</td>
+        <td>Type</td>
+        <td>Code</td>
+        <td>Explanation</td>
+      </tr>
+    </thead>
+    <tbody>
+      {messages.map(({ id, code, type }, index) => {
+        const description = getMessageDescription(code);
+        const color = type === "error" ? "red" : "orange";
+        return (
+          <tr key={index} style={{ color }}>
+            <td>{id}</td>
+            <td>{type}</td>
+            <td>{code}</td>
+            <td>{description}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+);
+
+const ValidatePayouts = () => {
+  const [
+    validationStatus,
+    setValidationStatus,
+  ] = useState<ValidationStatusType>("idle");
   const [messages, setMessages] = useState<Message[]>([]);
 
   const onCSVParsed = async (data: PapaParseResult[]) => {
@@ -48,18 +97,10 @@ const Upload = () => {
   return (
     <>
       <input type="file" accept=".csv" onChange={onChange} />
-      <p>Validation status: {validationStatus}</p>
-      {messages.map(({ id, name, type }, index) => {
-        const description = getMessageDescription(name);
-        const color = type === "error" ? "red" : "black";
-        return (
-          <p key={index} style={{ color }}>
-            {id}: {description}
-          </p>
-        );
-      })}
+      <ValidationStatus validationStatus={validationStatus} />
+      {!!messages.length && <Messages messages={messages} />}
     </>
   );
 };
 
-export default Upload;
+export default ValidatePayouts;

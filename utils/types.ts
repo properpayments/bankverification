@@ -15,7 +15,7 @@ export type PapaParseResult = { [key: string]: string };
 
 export type Account = string;
 
-export type MessageName =
+export type MessageCode =
   | "missing-virtual-account"
   | "account-not-in-approved-list"
   | "fee-wrong-account"
@@ -24,6 +24,6 @@ export type MessageName =
 
 export type Message = {
   id: string;
-  name: MessageName;
+  code: MessageCode;
   type: "error" | "warning";
 };
