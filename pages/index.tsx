@@ -79,6 +79,8 @@ const ValidatePayouts = () => {
     setValidationStatus,
   ] = useState<ValidationStatusType>("idle");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [fileName, setFileName] = useState();
 
   const onCSVParsed = async (data: PapaParseResult[]) => {
     setValidationStatus("validating");
@@ -97,13 +99,23 @@ const ValidatePayouts = () => {
 
   const onChange = (event: any) => {
     if (event.target.files) {
-      parseFile(event.target.files[0], onCSVParsed);
+      const file = event.target.files[0];
+      parseFile(file, onCSVParsed);
+      setFileName(file.name);
+      setInputValue("");
     }
   };
 
   return (
     <>
-      <input type="file" accept=".csv" onChange={onChange} />
+      <input value={inputValue} type="file" accept=".csv" onChange={onChange} />
+      {fileName ? (
+        <h3>
+          Validating <span style={{ color: "blue" }}>{fileName}</span>
+        </h3>
+      ) : (
+        <h3>No file chosen</h3>
+      )}
       <ValidationStatus validationStatus={validationStatus} />
       {validationStatus === "error" && <Messages messages={messages} />}
     </>

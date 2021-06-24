@@ -10,3 +10,32 @@ td {
   border: 1px solid black;
   padding: 6px 12px;
 }
+
+input {
+  width: 173px;
+}
+
+input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+input::before {
+  content: "Choose CSV file";
+  display: inline-block;
+  border: 1px solid #999;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+input:hover::before {
+  border-color: black;
+}
+
+input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
