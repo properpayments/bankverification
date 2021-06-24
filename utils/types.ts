@@ -20,7 +20,9 @@ export type MessageCode =
   | "account-not-in-approved-list"
   | "fee-wrong-account"
   | "fee-missing-corresponding-payout"
-  | "is-parking-account";
+  | "fee-currency-mismatch"
+  | "is-parking-account"
+  | "invalid-file-format";
 
 export type Message = {
   id: string;
