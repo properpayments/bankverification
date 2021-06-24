@@ -26,13 +26,13 @@ type ValidationStatusProps = {
 const ValidationStatus = ({ validationStatus }: ValidationStatusProps) => {
   let status;
   if (validationStatus === "idle") {
-    status = <span style={{ color: "gray" }}>Not started</span>;
+    status = <span style={{ color: "gray" }}>Not started 😴</span>;
   } else if (validationStatus === "validating") {
-    status = <span style={{ color: "blue" }}>Validating...</span>;
+    status = <span style={{ color: "blue" }}>Validating file 🤔</span>;
   } else if (validationStatus === "error") {
-    status = <span style={{ color: "red" }}>Error!</span>;
+    status = <span style={{ color: "red" }}>The file is no good 👎</span>;
   } else if (validationStatus === "success") {
-    status = <span style={{ color: "green" }}>All good!</span>;
+    status = <span style={{ color: "green" }}>The file looks good 👍</span>;
   }
 
   return <h2>Validation status: {status}</h2>;
@@ -84,13 +84,16 @@ const ValidatePayouts = () => {
 
   const onCSVParsed = async (data: PapaParseResult[]) => {
     setValidationStatus("validating");
+
     const response = await fetch("/api/validate", {
       method: "POST",
       body: JSON.stringify(data),
     });
-    const list: Message[] = await response.json();
-    setMessages(list);
-    if (list.find(({ type }) => type === "error")) {
+
+    const messages: Message[] = await response.json();
+    setMessages(messages);
+
+    if (messages.find(({ type }) => type === "error")) {
       setValidationStatus("error");
     } else {
       setValidationStatus("success");
@@ -100,9 +103,11 @@ const ValidatePayouts = () => {
   const onChange = (event: any) => {
     if (event.target.files) {
       const file = event.target.files[0];
-      parseFile(file, onCSVParsed);
+      setValidationStatus("idle");
+      setMessages([]);
       setFileName(file.name);
       setInputValue("");
+      parseFile(file, onCSVParsed);
     }
   };
 
@@ -111,13 +116,13 @@ const ValidatePayouts = () => {
       <input value={inputValue} type="file" accept=".csv" onChange={onChange} />
       {fileName ? (
         <h3>
-          Validating <span style={{ color: "blue" }}>{fileName}</span>
+          File chosen <span style={{ color: "blue" }}>{fileName}</span>
         </h3>
       ) : (
         <h3>No file chosen</h3>
       )}
       <ValidationStatus validationStatus={validationStatus} />
-      {validationStatus === "error" && <Messages messages={messages} />}
+      {!!messages.length && <Messages messages={messages} />}
     </>
   );
 };
