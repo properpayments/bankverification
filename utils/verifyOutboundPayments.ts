@@ -46,8 +46,13 @@ function senderIsVirtualAccount(payment: Payment) {
   );
 }
 
-function toAccountIsInApprovedAccounts(payment: Payment, accounts: Account[]) {
-  return accounts.find((account) => account === payment["Modtagers konto"]);
+function toAccountIsInApprovedAccounts(
+  payment: Payment,
+  approvedAccounts: Account[]
+) {
+  return approvedAccounts.find(
+    (account) => account === payment["Modtagers konto"]
+  );
 }
 
 function isProperFee(payment: Payment) {
@@ -78,7 +83,7 @@ function feeHasCorrespondingPayout(payment: Payment, payments: Payment[]) {
 
 function verifyOutboundPayments(
   papaParseResult: PapaParseResult[],
-  accounts: Account[]
+  approvedAccounts: Account[]
 ): Message[] {
   const payments = getPayments(papaParseResult);
 
@@ -93,7 +98,7 @@ function verifyOutboundPayments(
       messages.push({ id, code: "missing-virtual-account", type: "error" });
     }
 
-    if (!toAccountIsInApprovedAccounts(payment, accounts)) {
+    if (!toAccountIsInApprovedAccounts(payment, approvedAccounts)) {
       messages.push({
         id,
         code: "account-not-in-approved-list",

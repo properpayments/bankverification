@@ -12,13 +12,17 @@ const getMock = (pathName: string) => {
   return csvFile.toString();
 };
 
-const accounts = [...PROPER_ACCOUNTS, "00000012345678", "30010012787812"];
+const approvedAccounts = [
+  ...PROPER_ACCOUNTS,
+  "00000012345678",
+  "30010012787812",
+];
 
 describe("verifyOutboundPayments", () => {
   it("it crashes for malformed payments CSV file", () => {
     const mock = getMock("./mocks/payments_malformed.csv");
     const data = parseString(mock);
-    const messages = verifyOutboundPayments(data, accounts);
+    const messages = verifyOutboundPayments(data, approvedAccounts);
     expect(messages).toEqual([
       {
         id: "",
@@ -30,7 +34,7 @@ describe("verifyOutboundPayments", () => {
   it("returns expected messages for unexpected data in the CSV", () => {
     const mock = getMock("./mocks/payments_with_errors.csv");
     const data = parseString(mock);
-    const messages = verifyOutboundPayments(data, accounts);
+    const messages = verifyOutboundPayments(data, approvedAccounts);
     expect(messages).toEqual([
       {
         id: "Proper abc",
@@ -69,10 +73,16 @@ describe("verifyOutboundPayments", () => {
       },
     ]);
   });
-  it("it returns no messages the CSV looks good", async () => {
-    const mock = getMock("./mocks/payments.csv");
+  it("it returns no errors if everything is good", async () => {
+    const mock = getMock("./mocks/payments_with_no_errors.csv");
     const data = parseString(mock);
-    const messages = verifyOutboundPayments(data, accounts);
-    expect(messages).toEqual([]);
+    const messages = verifyOutboundPayments(data, approvedAccounts);
+    expect(messages).toEqual([
+      {
+        code: "is-parking-account",
+        id: "Proper def",
+        type: "warning",
+      },
+    ]);
   });
 });

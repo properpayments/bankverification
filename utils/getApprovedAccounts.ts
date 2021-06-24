@@ -4,7 +4,7 @@ import { PROPER_ACCOUNTS } from "../constants";
 
 const sheetId = "10KEd5jJcZGEqIVt3bYZd0hRAK1Bmm8K3N2oLIsKVwdQ";
 
-const getBankAccounts = async () => {
+const getApprovedAccounts = async () => {
   const values: string[] = PROPER_ACCOUNTS;
 
   const doc = new GoogleSpreadsheet(sheetId);
@@ -31,4 +31,4 @@ const getBankAccounts = async () => {
   return values;
 };
 
-export default getBankAccounts;
+export default getApprovedAccounts;
