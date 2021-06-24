@@ -33,27 +33,27 @@ describe("verifyOutboundPayments", () => {
     expect(messages).toEqual([
       {
         id: "Proper abc",
-        name: "missing-virtual-account",
+        code: "missing-virtual-account",
         type: "error",
       },
       {
         id: "Proper def",
-        name: "account-not-in-approved-list",
+        code: "account-not-in-approved-list",
         type: "error",
       },
       {
         id: "Proper fees def",
-        name: "fee-wrong-account",
+        code: "fee-wrong-account",
         type: "error",
       },
       {
         id: "Proper fees ???",
-        name: "fee-missing-corresponsing-payout",
+        code: "fee-missing-corresponding-payout",
         type: "error",
       },
       {
         id: "Proper ghi",
-        name: "is-parking-account",
+        code: "is-parking-account",
         type: "warning",
       },
     ]);
