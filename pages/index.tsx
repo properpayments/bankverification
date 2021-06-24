@@ -41,32 +41,37 @@ const ValidationStatus = ({ validationStatus }: ValidationStatusProps) => {
 type MessagesProps = {
   messages: Message[];
 };
-const Messages = ({ messages }: MessagesProps) => (
-  <table>
-    <thead>
-      <tr>
-        <td>Id</td>
-        <td>Type</td>
-        <td>Code</td>
-        <td>Explanation</td>
-      </tr>
-    </thead>
-    <tbody>
-      {messages.map(({ id, code, type }, index) => {
-        const description = getMessageDescription(code);
-        const color = type === "error" ? "red" : "orange";
-        return (
-          <tr key={index} style={{ color }}>
-            <td>{id}</td>
-            <td>{type}</td>
-            <td>{code}</td>
-            <td>{description}</td>
-          </tr>
-        );
-      })}
-    </tbody>
-  </table>
-);
+const Messages = ({ messages }: MessagesProps) => {
+  if (messages.find((message) => message.code === "invalid-file-format")) {
+    return <p>The file is unusable. Ask the Product team for details...</p>;
+  }
+  return (
+    <table>
+      <thead>
+        <tr>
+          <td>Id</td>
+          <td>Type</td>
+          <td>Code</td>
+          <td>Explanation</td>
+        </tr>
+      </thead>
+      <tbody>
+        {messages.map(({ id, code, type }, index) => {
+          const description = getMessageDescription(code);
+          const color = type === "error" ? "red" : "orange";
+          return (
+            <tr key={index} style={{ color }}>
+              <td>{id}</td>
+              <td>{type}</td>
+              <td>{code}</td>
+              <td>{description}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
 
 const ValidatePayouts = () => {
   const [

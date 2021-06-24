@@ -1,24 +1,4 @@
-import { PapaParseResult, Payment, PaymentKey } from "./types";
-
-function checkHasExpectedPaymentFormat(object: any) {
-  Object.keys(object).forEach((key) => {
-    if (!EXPECTED_PAYMENT_KEYS.includes(key as PaymentKey)) {
-      throw new Error(`Unexpected key "${key}"`);
-    }
-  });
-}
-
-export const EXPECTED_PAYMENT_KEYS: PaymentKey[] = [
-  "Beløb",
-  "Valuta",
-  "Dato",
-  "Afsenders konto",
-  "Tekst",
-  "Modtagers navn",
-  "Modtagers konto",
-  "Betalingstype",
-  "Status",
-];
+import { PapaParseResult, Payment } from "./types";
 
 const validIBANPattern = /^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$/;
 
@@ -55,7 +35,6 @@ function getPayments(papaParseResults: PapaParseResult[]): Payment[] {
     payments.push(object);
   });
 
-  payments.forEach(checkHasExpectedPaymentFormat);
   return payments;
 }
 
