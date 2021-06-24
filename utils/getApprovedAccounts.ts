@@ -1,11 +1,10 @@
 // See https://docs.google.com/spreadsheets/d/10KEd5jJcZGEqIVt3bYZd0hRAK1Bmm8K3N2oLIsKVwdQ
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import { PROPER_ACCOUNTS } from "../constants";
 
 const sheetId = "10KEd5jJcZGEqIVt3bYZd0hRAK1Bmm8K3N2oLIsKVwdQ";
 
 const getApprovedAccounts = async () => {
-  const values: string[] = PROPER_ACCOUNTS;
+  const values: string[] = [];
 
   const doc = new GoogleSpreadsheet(sheetId);
   const key = process.env.GOOGLE_SERVICE_ACCOUNT_KEY as string;
