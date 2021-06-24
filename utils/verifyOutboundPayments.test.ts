@@ -4,7 +4,7 @@ import fs from "fs";
 import path from "path";
 
 import { parseString } from "./parseCSV";
-import { OPERATIONS_ACCOUNT, PARKING_ACCOUNT } from "./constants";
+import { PROPER_ACCOUNTS } from "../constants";
 
 const getMock = (pathName: string) => {
   const filePath = path.join(__dirname, pathName);
@@ -12,12 +12,7 @@ const getMock = (pathName: string) => {
   return csvFile.toString();
 };
 
-const accounts = [
-  OPERATIONS_ACCOUNT,
-  PARKING_ACCOUNT,
-  "00000012345678",
-  "30010012787812",
-];
+const accounts = [...PROPER_ACCOUNTS, "00000012345678", "30010012787812"];
 
 describe("verifyOutboundPayments", () => {
   it("it crashes for malformed payments CSV file", () => {
@@ -55,6 +50,16 @@ describe("verifyOutboundPayments", () => {
         id: "Proper ghi",
         code: "is-parking-account",
         type: "warning",
+      },
+      {
+        code: "fee-currency-mismatch",
+        id: "Proper fees jkl",
+        type: "error",
+      },
+      {
+        code: "fee-currency-mismatch",
+        id: "Proper fees mno",
+        type: "error",
       },
     ]);
   });

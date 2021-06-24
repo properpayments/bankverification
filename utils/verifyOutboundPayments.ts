@@ -1,6 +1,11 @@
 import type { Account, Message, PapaParseResult, Payment } from "./types";
 
-import { OPERATIONS_ACCOUNT, PARKING_ACCOUNT } from "./constants";
+import {
+  PROPER_OPERATION_ACCOUNTS,
+  PARKING_ACCOUNT,
+  OPERATIONS_ACCOUNT_DKK,
+  OPERATIONS_ACCOUNT_EUR,
+} from "../constants";
 import getPayments from "./getPayments";
 
 function senderIsVirtualAccount(payment: Payment) {
@@ -19,7 +24,16 @@ function isProperFee(payment: Payment) {
 }
 
 function toAccountIsOperationsAccount(payment: Payment) {
-  return payment["Modtagers konto"] === OPERATIONS_ACCOUNT;
+  return PROPER_OPERATION_ACCOUNTS.find(
+    (account) => account === payment["Modtagers konto"]
+  );
+}
+
+function toAccountAndPaymentHasSameCurrency(payment: Payment) {
+  if (payment.Valuta === "EUR") {
+    return OPERATIONS_ACCOUNT_EUR === payment["Modtagers konto"];
+  }
+  return OPERATIONS_ACCOUNT_DKK === payment["Modtagers konto"];
 }
 
 function toAccountIsParkingAccount(payment: Payment) {
@@ -55,6 +69,8 @@ function verifyOutboundPayments(
     if (isProperFee(payment)) {
       if (!toAccountIsOperationsAccount(payment)) {
         messages.push({ id, code: "fee-wrong-account", type: "error" });
+      } else if (!toAccountAndPaymentHasSameCurrency(payment)) {
+        messages.push({ id, code: "fee-currency-mismatch", type: "error" });
       }
 
       if (!feeHasCorrespondingPayout(payment, payments)) {

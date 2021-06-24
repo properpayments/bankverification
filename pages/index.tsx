@@ -4,16 +4,18 @@ import { Message, MessageCode, PapaParseResult } from "../utils/types";
 
 type ValidationStatusType = "idle" | "validating" | "success" | "error";
 
-const getMessageDescription = (name: MessageCode) => {
-  if (name === "missing-virtual-account") {
+const getMessageDescription = (code: MessageCode) => {
+  if (code === "missing-virtual-account") {
     return "The sender is not a virtual bank account";
-  } else if (name === "account-not-in-approved-list") {
+  } else if (code === "account-not-in-approved-list") {
     return "Destination is not in list of approved accounts";
-  } else if (name === "fee-wrong-account") {
+  } else if (code === "fee-wrong-account") {
     return "Expected destination to be operations account";
-  } else if (name === "fee-missing-corresponding-payout") {
+  } else if (code === "fee-currency-mismatch") {
+    return "Expected destination to be operations account with matching currency";
+  } else if (code === "fee-missing-corresponding-payout") {
     return "The fee has no corresponding payout";
-  } else if (name === "is-parking-account") {
+  } else if (code === "is-parking-account") {
     return "Will be transfered to our parking account";
   }
 };
@@ -98,7 +100,7 @@ const ValidatePayouts = () => {
     <>
       <input type="file" accept=".csv" onChange={onChange} />
       <ValidationStatus validationStatus={validationStatus} />
-      {!!messages.length && <Messages messages={messages} />}
+      {validationStatus === "error" && <Messages messages={messages} />}
     </>
   );
 };

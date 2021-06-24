@@ -1,11 +1,11 @@
 // See https://docs.google.com/spreadsheets/d/10KEd5jJcZGEqIVt3bYZd0hRAK1Bmm8K3N2oLIsKVwdQ
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import { OPERATIONS_ACCOUNT, PARKING_ACCOUNT } from "./constants";
+import { PROPER_ACCOUNTS } from "../constants";
 
 const sheetId = "10KEd5jJcZGEqIVt3bYZd0hRAK1Bmm8K3N2oLIsKVwdQ";
 
 const getBankAccounts = async () => {
-  const values: string[] = [OPERATIONS_ACCOUNT, PARKING_ACCOUNT];
+  const values: string[] = PROPER_ACCOUNTS;
 
   const doc = new GoogleSpreadsheet(sheetId);
   const key = process.env.GOOGLE_SERVICE_ACCOUNT_KEY as string;
