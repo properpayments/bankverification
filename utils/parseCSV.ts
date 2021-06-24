@@ -15,7 +15,6 @@ export const parseFile = async (
   Papa.parse(file, {
     ...defaultOptions,
     complete: ({ data }) => {
-      console.log(data);
       onComplete(data as PapaParseResult[]);
     },
   });
