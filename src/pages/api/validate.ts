@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import getApprovedAccounts from "../../utils/getApprovedAccounts";
-import { Message } from "../../utils/types";
-import verifyOutboundPayments from "../../utils/verifyOutboundPayments";
+import getApprovedAccounts from "~utils/getApprovedAccounts";
+import { Message } from "~types";
+import verifyOutboundPayments from "~utils/verifyOutboundPayments";
 
 type Reponse = Message[];
 

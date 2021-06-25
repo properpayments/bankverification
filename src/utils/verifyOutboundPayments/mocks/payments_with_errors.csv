@@ -1,0 +1,11 @@
+Beløb;Valuta;Dato;Afsenders konto;Tekst;Modtagers navn;Modtagers konto;Betalingstype;Status
+1;DKK;01.01.2020;NOT_VIRTUAL_ACCOUNT;Proper abc;The sender account must be a virtual account;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper def;The bank account must be in approved list;FAKE_REG FAKE_ACCOUNT;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper fees def;A Proper fee must be transfered to a Proper operations account;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper fees ???;A Proper fee must have a corresponding payment;3001 0012787812;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper ghi;A warning should be shown if making a payout to the Proper parking account;3001 0012913478;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;EUR;01.01.2020;Payments, virtual EUR;Proper jkl;See next line for details;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtual EUR;Proper fees jkl;A few in DKK should not be allowed transfered to EUR operations account;3000 3002108623;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper mno;See next line for details;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;EUR;01.01.2020;Payments, virtuel;Proper fees mno;A few in EUR should not be allowed transfered to DKK operations account;3001 0012787812;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;01.01.2020;Payments, virtuel;Proper pqr;Payout to Proper operations account should not be allowed;3001 0012787812;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
