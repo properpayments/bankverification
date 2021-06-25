@@ -80,7 +80,7 @@ const ValidatePayouts = () => {
     useState<ValidationStatusType>("idle");
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
-  const [fileName, setFileName] = useState();
+  const [fileName, setFileName] = useState<string | undefined>();
 
   const onCSVParsed = async (data: PapaParseResult[]) => {
     setValidationStatus("validating");
@@ -102,20 +102,41 @@ const ValidatePayouts = () => {
     }
   };
 
-  const onChange = (event: any) => {
-    if (event.target.files) {
-      const file = event.target.files[0];
-      setValidationStatus("idle");
-      setMessages([]);
-      setFileName(file.name);
-      setInputValue("");
-      parseFile(file, onCSVParsed);
-    }
+  const onValidateFile = (file: File) => {
+    setValidationStatus("idle");
+    setMessages([]);
+    setFileName(file.name);
+    setInputValue("");
+    parseFile(file, onCSVParsed);
   };
 
   return (
-    <>
-      <input value={inputValue} type="file" accept=".csv" onChange={onChange} />
+    <div
+      style={{
+        padding: "24px",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        border: "3px dashed lightgray",
+      }}
+      onDrop={(e: any) => {
+        onValidateFile(e.dataTransfer.files[0]);
+        e.preventDefault();
+      }}
+      // // See: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations#droptargets
+      onDragOver={(e: any) => e.preventDefault()}
+    >
+      <input
+        value={inputValue}
+        type="file"
+        accept=".csv"
+        onChange={(e) => {
+          if (e.target.files) {
+            onValidateFile(e.target.files[0]);
+          }
+        }}
+      />{" "}
+      (or drop file anywhere...)
       {fileName ? (
         <h3>
           File chosen <span style={{ color: "blue" }}>{fileName}</span>
@@ -130,7 +151,7 @@ const ValidatePayouts = () => {
           An unexpected error occured. Ask the Product team for details.
         </p>
       )}
-    </>
+    </div>
   );
 };
 
