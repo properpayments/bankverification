@@ -27,6 +27,8 @@ GOOGLE_SERVICE_ACCOUNT_CLIENT_EMAIL=...
 
 You'll find the values for environment variables [on Vercel](https://vercel.com/properprototypes/validate-payouts/settings/environment-variables).
 
+> Note, we used [this gist](https://gist.github.com/AnalyzePlatypus/a486323a331c91f738f2245ff9a1c66f) to figure out how to access a private Google Sheet.
+
 ## Deployment
 
 The app is deployed [on Vercel](https://vercel.com/properprototypes/validate-payouts).
