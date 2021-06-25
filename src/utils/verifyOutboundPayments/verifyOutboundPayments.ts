@@ -59,6 +59,7 @@ function verifyOutboundPayments(
   const messages: Message[] = [];
   payments.forEach((payment) => {
     const id = payment.Tekst;
+
     if (!senderIsVirtualAccount(payment)) {
       messages.push({ id, code: "missing-virtual-account", type: "error" });
     }
@@ -84,9 +85,7 @@ function verifyOutboundPayments(
           code: "account-not-in-approved-list",
           type: "error",
         });
-      }
-
-      if (toAccountIsParkingAccount(payment)) {
+      } else if (toAccountIsParkingAccount(payment)) {
         messages.push({ id, code: "is-parking-account", type: "warning" });
       }
     }
