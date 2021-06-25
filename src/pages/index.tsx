@@ -2,7 +2,12 @@ import { useState } from "react";
 import { parseFile } from "~utils/parseCSV";
 import { Message, MessageCode, PapaParseResult } from "~types";
 
-type ValidationStatusType = "idle" | "validating" | "success" | "error";
+type ValidationStatusType =
+  | "idle"
+  | "validating"
+  | "success"
+  | "error"
+  | "error-500";
 
 const getMessageDescription = (code: MessageCode) => {
   if (code === "missing-virtual-account") {
@@ -31,6 +36,8 @@ const ValidationStatus = ({ validationStatus }: ValidationStatusProps) => {
     status = <span style={{ color: "blue" }}>Validating file 🤔</span>;
   } else if (validationStatus === "error") {
     status = <span style={{ color: "red" }}>The file is no good 👎</span>;
+  } else if (validationStatus === "error-500") {
+    status = <span style={{ color: "red" }}>Something is not right 🤷</span>;
   } else if (validationStatus === "success") {
     status = <span style={{ color: "green" }}>The file looks good 👍</span>;
   }
@@ -85,9 +92,13 @@ const ValidatePayouts = () => {
       });
       const messages: Message[] = await response.json();
       setMessages(messages);
-      setValidationStatus("success");
+      if (messages.find((message) => message.type === "error")) {
+        setValidationStatus("error");
+      } else {
+        setValidationStatus("success");
+      }
     } catch {
-      setValidationStatus("error");
+      setValidationStatus("error-500");
     }
   };
 
@@ -114,7 +125,7 @@ const ValidatePayouts = () => {
       )}
       <ValidationStatus validationStatus={validationStatus} />
       {!!messages.length && <Messages messages={messages} />}
-      {validationStatus === "error" && (
+      {validationStatus === "error-500" && (
         <p style={{ color: "white", backgroundColor: "red", padding: "12px" }}>
           An unexpected error occured. Ask the Product team for details.
         </p>
