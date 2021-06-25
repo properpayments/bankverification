@@ -1,7 +1,7 @@
 Beløb;Valuta;Dato;Afsenders konto;Tekst;Modtagers navn;Modtagers konto;Betalingstype;Status
-1;DKK;17.11.2020;Payments, virtuel;Proper abc;PROPER APS;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
-1;DKK;17.11.2020;Payments, virtuel;Proper def;PROPER APS;3001 12913478;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
-1;DKK;17.11.2020;Payments, virtuel;Proper ghi;PROPER APS;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
-1;DKK;17.11.2020;Payments, virtuel;Proper fees ghi;PROPER APS;3001 12787812;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
-1;EUR;17.11.2020;Payments, virtual EUR;Proper jkl;PROPER APS;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
-1;EUR;17.11.2020;Payments, virtual EUR;Proper fees jkl;PROPER APS;3000 3002108623;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;17.11.2020;Payments, virtuel;Proper abc;Payout with no corresponding Proper fee;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;17.11.2020;Payments, virtuel;Proper def;Payout to parking account;3001 12913478;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;17.11.2020;Payments, virtuel;Proper ghi;Payout with corresponding Proper fee;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;DKK;17.11.2020;Payments, virtuel;Proper fees ghi;Proper fee for Proper ghi;3001 12787812;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;EUR;17.11.2020;Payments, virtual EUR;Proper jkl;(EUR) Payout with corresponding Proper fee;0000 12345678;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+1;EUR;17.11.2020;Payments, virtual EUR;Proper fees jkl;(EUR) Proper fee for Proper jkl;3000 3002108623;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
