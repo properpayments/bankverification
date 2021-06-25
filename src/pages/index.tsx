@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { parseFile } from "../utils/parseCSV";
-import { Message, MessageCode, PapaParseResult } from "../utils/types";
+import { parseFile } from "~utils/parseCSV";
+import { Message, MessageCode, PapaParseResult } from "~types";
 
 type ValidationStatusType = "idle" | "validating" | "success" | "error";
 
@@ -74,10 +74,8 @@ const Messages = ({ messages }: MessagesProps) => {
 };
 
 const ValidatePayouts = () => {
-  const [
-    validationStatus,
-    setValidationStatus,
-  ] = useState<ValidationStatusType>("idle");
+  const [validationStatus, setValidationStatus] =
+    useState<ValidationStatusType>("idle");
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [fileName, setFileName] = useState();

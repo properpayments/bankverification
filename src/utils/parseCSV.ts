@@ -1,5 +1,5 @@
 import Papa from "papaparse";
-import { PapaParseResult } from "./types";
+import { PapaParseResult } from "~types";
 
 export const defaultOptions = {
   delimiter: ";",

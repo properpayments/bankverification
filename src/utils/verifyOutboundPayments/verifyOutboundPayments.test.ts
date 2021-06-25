@@ -1,9 +1,9 @@
-import verifyOutboundPayments from "./verifyOutboundPayments";
-
 import fs from "fs";
 import path from "path";
 
-import { parseString } from "./parseCSV";
+import verifyOutboundPayments from "./verifyOutboundPayments";
+
+import { parseString } from "../parseCSV";
 
 const getMock = (pathName: string) => {
   const filePath = path.join(__dirname, pathName);

@@ -4,14 +4,14 @@ import type {
   PapaParseResult,
   Payment,
   PaymentKey,
-} from "./types";
+} from "~types";
 
 import {
   PROPER_OPERATION_ACCOUNTS,
   PARKING_ACCOUNT,
   OPERATIONS_ACCOUNT_DKK,
   OPERATIONS_ACCOUNT_EUR,
-} from "../constants";
+} from "~constants";
 import getPayments from "./getPayments";
 
 const EXPECTED_PAYMENT_KEYS: PaymentKey[] = [

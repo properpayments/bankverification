@@ -1,0 +1,3 @@
+Beløb;Valuta;Dato;Afsenders konto;Tekst;Modtagers navn;Modtagers konto;Betalingstype;Status
+951;DKK;1.1.2020;Payments, virtuel;Proper abc;PROPER APS;3001 12787812;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
+49;DKK;1.1.2020;Payments, virtuel;Proper fees abc;PROPER APS;3001 0012787812;Kontooverførsel - Standard;Betalingen kan ikke gennemføres, førend den er blevet 2. godkendt
