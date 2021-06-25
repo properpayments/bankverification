@@ -41,37 +41,32 @@ const ValidationStatus = ({ validationStatus }: ValidationStatusProps) => {
 type MessagesProps = {
   messages: Message[];
 };
-const Messages = ({ messages }: MessagesProps) => {
-  if (messages.find((message) => message.code === "invalid-file-format")) {
-    return <p>The file is unusable. Ask the Product team for details...</p>;
-  }
-  return (
-    <table>
-      <thead>
-        <tr>
-          <td>Id</td>
-          <td>Type</td>
-          <td>Code</td>
-          <td>Explanation</td>
-        </tr>
-      </thead>
-      <tbody>
-        {messages.map(({ id, code, type }, index) => {
-          const description = getMessageDescription(code);
-          const color = type === "error" ? "red" : "orange";
-          return (
-            <tr key={index} style={{ color }}>
-              <td>{id}</td>
-              <td>{type}</td>
-              <td>{code}</td>
-              <td>{description}</td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
-  );
-};
+const Messages = ({ messages }: MessagesProps) => (
+  <table>
+    <thead>
+      <tr>
+        <td>Id</td>
+        <td>Type</td>
+        <td>Code</td>
+        <td>Explanation</td>
+      </tr>
+    </thead>
+    <tbody>
+      {messages.map(({ id, code, type }, index) => {
+        const description = getMessageDescription(code);
+        const color = type === "error" ? "red" : "orange";
+        return (
+          <tr key={index} style={{ color }}>
+            <td>{id}</td>
+            <td>{type}</td>
+            <td>{code}</td>
+            <td>{description}</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+);
 
 const ValidatePayouts = () => {
   const [validationStatus, setValidationStatus] =
@@ -83,18 +78,16 @@ const ValidatePayouts = () => {
   const onCSVParsed = async (data: PapaParseResult[]) => {
     setValidationStatus("validating");
 
-    const response = await fetch("/api/validate", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-
-    const messages: Message[] = await response.json();
-    setMessages(messages);
-
-    if (messages.find(({ type }) => type === "error")) {
-      setValidationStatus("error");
-    } else {
+    try {
+      const response = await fetch("/api/validate", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+      const messages: Message[] = await response.json();
+      setMessages(messages);
       setValidationStatus("success");
+    } catch {
+      setValidationStatus("error");
     }
   };
 
@@ -121,6 +114,11 @@ const ValidatePayouts = () => {
       )}
       <ValidationStatus validationStatus={validationStatus} />
       {!!messages.length && <Messages messages={messages} />}
+      {validationStatus === "error" && (
+        <p style={{ color: "white", backgroundColor: "red", padding: "12px" }}>
+          An unexpected error occured. Ask the Product team for details.
+        </p>
+      )}
     </>
   );
 };

@@ -21,8 +21,7 @@ export type MessageCode =
   | "fee-wrong-account"
   | "fee-missing-corresponding-payout"
   | "fee-currency-mismatch"
-  | "is-parking-account"
-  | "invalid-file-format";
+  | "is-parking-account";
 
 export type Message = {
   id: string;

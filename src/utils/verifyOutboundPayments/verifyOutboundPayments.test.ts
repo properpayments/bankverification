@@ -17,14 +17,8 @@ describe("verifyOutboundPayments", () => {
   it("it crashes for malformed payments CSV file", () => {
     const mock = getMock("./mocks/payments_malformed.csv");
     const data = parseString(mock);
-    const messages = verifyOutboundPayments(data, approvedAccounts);
-    expect(messages).toEqual([
-      {
-        id: "",
-        code: "invalid-file-format",
-        type: "error",
-      },
-    ]);
+    const t = () => verifyOutboundPayments(data, approvedAccounts);
+    expect(t).toThrow('Unexpected key "Tkst"');
   });
   it("returns expected messages for unexpected data in the CSV", () => {
     const mock = getMock("./mocks/payments_with_errors.csv");
