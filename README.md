@@ -1,6 +1,6 @@
 ## About
 
-> Try it out on https://validate-payouts.vercel.app
+> Live on https://proper-bankverification.vercel.app
 
 In order to payout rent paid by tenants to landlords and Proper (our fee), we automatically upload payouts to Danske Bank. For now, we want to ensure (manually using this app) that the payouts we upload are what we expect them to be. So we download a file from Danske Bank with the payouts they plan to make and input the CSV in this app to check if they are what we expect.
 
