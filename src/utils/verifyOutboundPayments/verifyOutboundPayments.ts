@@ -8,10 +8,11 @@ import {
 } from "~constants";
 import getPayments from "./getPayments";
 
-function senderIsVirtualAccount(payment: Payment) {
+function senderIsValidAccount(payment: Payment) {
   return (
     payment["Afsenders konto"] === "Payments, virtuel" ||
-    payment["Afsenders konto"] === "Payments, virtual EUR"
+    payment["Afsenders konto"] === "Payments, virtual EUR" ||
+    payment["Afsenders konto"] === "Proper, kreditnota"
   );
 }
 
@@ -60,7 +61,7 @@ function verifyOutboundPayments(
   payments.forEach((payment) => {
     const id = payment.Tekst;
 
-    if (!senderIsVirtualAccount(payment)) {
+    if (!senderIsValidAccount(payment)) {
       messages.push({ id, code: "missing-virtual-account", type: "error" });
     }
 
