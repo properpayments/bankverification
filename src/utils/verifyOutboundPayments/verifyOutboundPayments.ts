@@ -12,7 +12,8 @@ function senderIsValidAccount(payment: Payment) {
   return (
     payment["Afsenders konto"] === "Payments, virtuel" ||
     payment["Afsenders konto"] === "Payments, virtual EUR" ||
-    payment["Afsenders konto"] === "Proper, kreditnota"
+    payment["Afsenders konto"] === "Proper, kreditnota" ||
+    payment["Afsenders konto"] === "Proper, kreditnota EUR"
   );
 }
 
