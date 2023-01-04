@@ -24,7 +24,7 @@ const validIBANPattern =
   /^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$/;
 
 export function getRecipientAccount(account: any) {
-  let _account = account.replace(" ", ""); // Remove space from human-formatted IBANs like "DK12 3456 7890 1234 56"
+  let _account = account.replaceAll(" ", ""); // Remove space from human-formatted IBANs like "DK12 3456 7890 1234 56"
 
   if (validIBANPattern.test(_account)) {
     return _account;
