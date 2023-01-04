@@ -24,11 +24,18 @@ const validIBANPattern =
   /^([A-Z]{2}[ \-]?[0-9]{2})(?=(?:[ \-]?[A-Z0-9]){9,30}$)((?:[ \-]?[A-Z0-9]{3,5}){2,7})([ \-]?[A-Z0-9]{1,3})?$/;
 
 export function getRecipientAccount(account: any) {
-  if (validIBANPattern.test(account)) {
-    return account;
+  let _account = account;
+
+  // Check if the account is a human-formatted IBAN like "DK12 3456 7890 1234 56"
+  if (/[a-z]/i.test(account)) {
+    _account = account.replace(" ", "");
   }
 
-  let [reg, bban] = account.split(" ");
+  if (validIBANPattern.test(_account)) {
+    return _account;
+  }
+
+  let [reg, bban] = _account.split(" ");
 
   while (bban.length < 10) {
     bban = `0${bban}`;
