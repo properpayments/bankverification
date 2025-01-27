@@ -12,6 +12,7 @@ export const parseFile = async (
   file: File,
   onComplete: (data: any) => void
 ) => {
+  // @ts-ignore: Suppress type error for the following line
   Papa.parse(file, {
     ...defaultOptions,
     complete: ({ data }) => {
@@ -21,5 +22,6 @@ export const parseFile = async (
 };
 
 export const parseString = (string: string) => {
+  // @ts-ignore: Suppress type error for the following line
   return Papa.parse(string, defaultOptions).data as PapaParseResult[];
 };

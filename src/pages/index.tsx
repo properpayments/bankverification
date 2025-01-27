@@ -88,8 +88,16 @@ const ValidatePayouts = () => {
     try {
       const response = await fetch("/api/validate", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const messages: Message[] = await response.json();
       setMessages(messages);
       if (messages.find((message) => message.type === "error")) {
@@ -97,7 +105,8 @@ const ValidatePayouts = () => {
       } else {
         setValidationStatus("success");
       }
-    } catch {
+    } catch (error) {
+      console.error("Validation error:", error);
       setValidationStatus("error-500");
     }
   };
