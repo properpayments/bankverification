@@ -18,7 +18,8 @@
       "~constants": ["./src/constants"],
       "~types": ["./src/types"],
       "~utils/*": ["./src/utils/*"]
-    }
+    },
+    "incremental": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
